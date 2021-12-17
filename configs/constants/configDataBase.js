@@ -1,4 +1,4 @@
-const BANK = "chatOnline"
+const BANK = "chat_online"
 const USER = "root"
 const PASSWORD = "12345"
 const HOST = "localhost"

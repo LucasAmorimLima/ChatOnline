@@ -8,7 +8,7 @@ exports.page  =  async (req, res, next) => {
 };
 exports.authentication  =  async (req, res, next) => {    
     passport.authenticate('local', { 
-        successRedirect: '/index', 
+        successRedirect: '/chat', 
         failureRedirect: '/login?fail=true' 
     })   
 };
