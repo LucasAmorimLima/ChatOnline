@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+const bodyParser = require('body-parser')
 const passport = require('passport');
 const session = require('express-session');
 
@@ -23,9 +24,14 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+//configs
+app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.json())
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
 
 app.use(logger('dev'));
 app.use(express.json());

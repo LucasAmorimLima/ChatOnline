@@ -3,7 +3,7 @@ const connection = require('../../configs/connection')
 
 
 const Chat = connection.sequelize.define('chat', {
-idClasses: {
+idUser: {
     type: DataTypes.INTEGER,
     references: {model: 'user' , key: 'id'},
     onDelete: 'CASCADE',
@@ -19,4 +19,4 @@ time: {
     }
 });
 module.exports = Chat
-//User.sync({force: true})
+Chat.sync({force: true})

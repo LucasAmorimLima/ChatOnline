@@ -1,3 +1,4 @@
+var increment = 0;
 $('.chat-input input').keyup(function(e) {
     if ($(this).val() == '')
         $(this).removeAttr('good');
@@ -13,12 +14,12 @@ $('form').submit(function(){
 });
 
 socket.on('chat message', function(msg){
-  //$('#messages').append($('<li>').text(msg));
+  
   var $wrapper = document.querySelector('.chat-window'),
  
     // Cria uma string de texto
     HTMLNovo = 
-    '<article class="msg-container msg-self" id="msg-0">'+
+    '<article class="msg-container msg-self" id="msg-'+increment+'">'+
         '<div class="msg-box">'+
             '<div class="flr">'+
                 '<div class="messages">'+
