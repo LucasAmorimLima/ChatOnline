@@ -6,22 +6,23 @@ exports.page = async (req, res, next) => {
 
 exports.insert  =  async (req, res, next) => {  
     const data = req.body
-        console.log(data)
-        if(userValidator(data.name, data.password, data.email)){
+        console.log(data)  
+        if(userValidator(data.name,data.nickName, data.password, data.email)){
                           
             await  Users.create({
                 name: data.name,
+                nickName: data.nickName,
                 password: data.password,
                 email: data.email,
                 
             }).then(()=>{              
-                res.render('login');
+                res.render('login',{message:null});
             }).catch((error)=>{
                 res.send(error)
                 //implementation
             })
         }else{
-            res.send(erro);
+            res.render('login',{message:erro});
            //implementation
         }
 };

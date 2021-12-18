@@ -8,12 +8,12 @@ $('.chat-input input').keyup(function(e) {
 $(function () {
 var socket = io();
 $('form').submit(function(){
-  socket.emit('chat message', $('#message').val());
+  socket.emit('chat message', $('#message').val(),$('#nickName').val(),$('#id').val());
   $('#message').val('');
   return false;
 });
 
-socket.on('chat message', function(msg){
+socket.on('chat message', function(msg,nickName){
   
   var $wrapper = document.querySelector('.chat-window'),
  
@@ -27,14 +27,14 @@ socket.on('chat message', function(msg){
                     msg+
                     '</p>'+
                 '</div>'+
-                '<span class="timestamp"><span class="username">Name</span>&bull;<span class="posttime">Now</span></span>'+
+                '<span class="timestamp"><span class="username">'+nickName+'</span>&bull;</span>'+
             '</div>'+
-            '<img class="user-img" id="user-0" src="//gravatar.com/avatar/56234674574535734573000000000001?d=retro" />'+
         '</div>'+
     '</article>';
  
     
     // Insere o fragmento antes do conteúdo atual do elemento
     $wrapper.insertAdjacentHTML("beforeend",HTMLNovo);
+    increment += 1;
 });
 });

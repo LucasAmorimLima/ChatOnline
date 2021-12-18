@@ -12,11 +12,7 @@ idUser: {
 message:{
     type: DataTypes.STRING,
     allowNull: false
-},
-time: {
-    type: DataTypes.DATE,
-    allowNull: false
-    }
+}
 });
 module.exports = Chat
 Chat.sync({force: true})
