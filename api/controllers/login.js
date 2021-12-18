@@ -1,16 +1,26 @@
 const passport = require('passport');
-
+const UsersModel = require('../models/UsersModel')
 exports.page  =  async (req, res, next) => {  
-    if (req.query.fail)
-        res.render('login', { message: 'Usuário e/ou senha incorretos!' });
-    else
-        res.render('login', { message: null }); 
+
+        res.render('login',{message:null});
 };
 exports.authentication  =  async (req, res, next) => {    
+
+    let {nickName,password} = req.body
+    console.log(req.body)
+    await UsersModel.findAll({where:{ nickName: nickName, password: password}})
+    .then((result)=>{
+        res.render('chat',{nickName}); 
+    }).catch((err)=>{
+        console.log(err)
+    }) 
+
+    /** 
     passport.authenticate('local', { 
         successRedirect: '/chat', 
         failureRedirect: '/login?fail=true' 
     })   
+    */
 };
 /** 
 exports.authentication  =  async (req, res, next) => {  

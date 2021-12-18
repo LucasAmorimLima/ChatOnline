@@ -15,14 +15,6 @@ require('./api/services/auth')(passport);
 
 var app = express();
 
-app.use(session({  
-  secret: '123',//configure um segredo seu aqui,
-  resave: false,
-  saveUninitialized: false,
-  cookie: { maxAge: 30 * 60 * 1000 }//30min
-}))
-app.use(passport.initialize());
-app.use(passport.session());
 
 //configs
 app.use(bodyParser.urlencoded({extended: true}))
