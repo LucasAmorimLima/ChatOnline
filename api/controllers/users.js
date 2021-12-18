@@ -13,9 +13,9 @@ exports.insert  =  async (req, res, next) => {
                 name: data.name,
                 password: data.password,
                 email: data.email,
-                nickName :data.nickName
+                
             }).then(()=>{              
-                res.render('login',{message:null});
+                res.render('login');
             }).catch((error)=>{
                 res.send(error)
                 //implementation
