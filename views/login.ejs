@@ -9,6 +9,11 @@
     <form method="post" action="/login">
     <div class="box">
     <h1>Chat Online</h1>
+    <% if(messageSuccess) { %>
+      <p>
+        <label style="color:blue"><%= messageSuccess %></label>
+      </p>
+    <%}%>
     <% if(message) { %>
         <p>
           <label style="color:Red"><%= message %></label>
