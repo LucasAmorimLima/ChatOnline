@@ -1,8 +1,4 @@
-const {loginValidator,erro} = require('../services/validations/loginValidation')
-const Users = require('../models/UsersModel')
-const {generateJWT} = require('../services/generateJWT')
-const Chat = require('../models/ChatModel')
-
+const passport = require('passport');
 
 exports.page  =  async (req, res, next) => {  
         res.render('login', { message: null ,messageSuccess:null}); 
@@ -11,6 +7,7 @@ exports.page  =  async (req, res, next) => {
 exports.authentication  =  async (req, res, next) => {  
     const data = req.body
   
+
     if(loginValidator(data.nickName, data.password)){             
         var resulta = []
         await Users.findAll({where: {password: req.body.password,nickName: req.body.nickName}}).then((result)=>{
@@ -40,13 +37,14 @@ exports.authentication  =  async (req, res, next) => {
                 }
                 
                 res.render('chat',{auth: true, id:resulta[0].id, nickName:resulta[0].nickName, token: generateJWT(resulta[0].id), content : result})                    
-                //implementation
+                
             }).catch((error)=>{
                 next(error);
             }) 
     }else{
         res.render('login', { message: erro }); 
     }
+
 };
 
 

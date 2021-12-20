@@ -1,6 +1,3 @@
-const Chat  = require('../models/ChatModel')
-const User = require('../models/UsersModel')
-
 exports.page  =  async (req, res, next) => {  
     content = getMessages()
     res.render('chat',{content}); 
@@ -17,4 +14,6 @@ exports.insert  =  async (id,message) => {
     }).catch((error)=>{
         next(error)
     })
+    res.render('chat', {}); 
+
 };
