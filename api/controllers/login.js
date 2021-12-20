@@ -1,54 +1,34 @@
-const {loginValidator,erro} = require('../services/validations/loginValidation')
-const Users = require('../models/UsersModel')
-const {generateJWT} = require('../services/generateJWT')
-const Chat = require('../models/ChatModel')
-
+const passport = require('passport');
 
 exports.page  =  async (req, res, next) => {  
+    if (req.query.fail)
+        res.render('login', { message: 'Usuário e/ou senha incorretos!' });
+    else
         res.render('login', { message: null }); 
 };
-
+exports.authentication  =  async (req, res, next) => {    
+    passport.authenticate('local', { 
+        successRedirect: '/index', 
+        failureRedirect: '/login?fail=true' 
+    })   
+};
+/** 
 exports.authentication  =  async (req, res, next) => {  
     const data = req.body
   
-    if(loginValidator(data.nickName, data.password)){             
-        var resulta = []
-        await Users.findAll({where: {password: req.body.password,nickName: req.body.nickName}}).then((result)=>{
-             resulta = result
+    if(loginValidator(data.email, data.senha)){             
+       
+        await Users.findAll({where: {senha: req.body.senha,email: req.body.email}}).then((result)=>{
+                    
+            return res.json({auth: true, id:result[0].id, nome:result[0].nome, token: generateJWT(result[0].id)})                    
         }).catch((error)=>{
-            console.log(error)
-        })
-        attributes = { exclude: ['createdAt', 'updatedAt'] }
-            await Chat.findAll({
-                raw: true,
-                attributes: attributes,
-                include: [{
-                    model: Users,
-                    require: true,
-                    attributes: ['name'] ,
-                }],
-                order : [['id', 'ASC']]
-            }).then((result)=>{
-                for (let index = 0; index < result.length; index++) {
-                    for (const [key, value] of Object.entries(result[index])) {
-                        if(key=='user.name'){
-                           result[index].name = `${value}`
-                        }else{
-                        result[index].key = `${value}`
-                        }       
-                    }
-                }
+            exptions.push(500,error)
+            next();
+            })
                 
-                res.render('chat',{auth: true, id:resulta[0].id, nickName:resulta[0].nickName, token: generateJWT(resulta[0].id), content : result})                    
-                //implementation
-            }).catch((error)=>{
-                console.log(error);
-            }) 
-    }else{
-        res.render('login', { message: erro }); 
-    }
+        }
 };
-
+*/
 
 
 
