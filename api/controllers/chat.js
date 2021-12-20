@@ -15,7 +15,6 @@ exports.insert  =  async (id,message) => {
         console.log(result);
         
     }).catch((error)=>{
-        console.log(error)
-        //implementation
+        next(error)
     })
 };
