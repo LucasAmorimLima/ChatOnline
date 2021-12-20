@@ -16,14 +16,13 @@ exports.insert  =  async (req, res, next) => {
                 email: data.email,
                 
             }).then(()=>{              
-                res.render('login',{message:null});
-            }).catch((error)=>{
-                res.send(error)
-                //implementation
+                res.render('login',{message:null,messageSuccess:"Usuário cadastrado com sucesso"});
+            }).catch(()=>{
+                res.render('users/signup',{message:"Usuário ou senha inválidos"});
             })
         }else{
-            res.render('login',{message:erro});
-           //implementation
+            res.render('users/signup',{message:erro});
+           
         }
 };
 

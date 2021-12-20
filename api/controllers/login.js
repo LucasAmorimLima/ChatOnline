@@ -5,7 +5,7 @@ const Chat = require('../models/ChatModel')
 
 
 exports.page  =  async (req, res, next) => {  
-        res.render('login', { message: null }); 
+        res.render('login', { message: null ,messageSuccess:null}); 
 };
 
 exports.authentication  =  async (req, res, next) => {  
@@ -15,8 +15,8 @@ exports.authentication  =  async (req, res, next) => {
         var resulta = []
         await Users.findAll({where: {password: req.body.password,nickName: req.body.nickName}}).then((result)=>{
              resulta = result
-        }).catch((error)=>{
-            console.log(error)
+        }).catch(()=>{
+            res.render('users/signup',{message:"Usuário ou senha inválidos"});
         })
         attributes = { exclude: ['createdAt', 'updatedAt'] }
             await Chat.findAll({
@@ -42,7 +42,7 @@ exports.authentication  =  async (req, res, next) => {
                 res.render('chat',{auth: true, id:resulta[0].id, nickName:resulta[0].nickName, token: generateJWT(resulta[0].id), content : result})                    
                 //implementation
             }).catch((error)=>{
-                console.log(error);
+                next(error);
             }) 
     }else{
         res.render('login', { message: erro }); 
